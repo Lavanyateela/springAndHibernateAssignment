@@ -1,16 +1,13 @@
 package com.assignment.springboot.controller;
 
 import com.assignment.springboot.dto.CollegeDTO;
-import com.assignment.springboot.entity.Club;
 import com.assignment.springboot.entity.College;
-import com.assignment.springboot.service.ClubService;
 import com.assignment.springboot.service.CollegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +22,9 @@ public class CollegeController {
         collegeService=theCollegeService;
     }
 
+    private String collegeForm="college-form";
+
+    private String redirect="redirect:/college/list";
     @GetMapping("/list")
     public String listCollege(Model theModel)
     {
@@ -40,7 +40,7 @@ public class CollegeController {
         College theCollege=new College();
         theModel.addAttribute("college",theCollege);
 
-        return "college-form";
+        return collegeForm;
     }
 
     @GetMapping("/showFormForUpdate")
@@ -50,7 +50,7 @@ public class CollegeController {
 
         theModel.addAttribute("college",theCollege);
 
-        return "college-form";
+        return collegeForm;
     }
 
     @PostMapping("/save")
@@ -58,11 +58,11 @@ public class CollegeController {
     {
         if(bindingResult.hasErrors())
         {
-            return "college-form";
+            return collegeForm;
         }
         collegeService.save(theCollege);
 
-        return "redirect:/college/list";
+        return redirect;
     }
 
     @GetMapping("/delete")
@@ -70,7 +70,7 @@ public class CollegeController {
     {
         collegeService.deleteById(theId);
 
-        return "redirect:/college/list";
+        return redirect;
     }
 
 }

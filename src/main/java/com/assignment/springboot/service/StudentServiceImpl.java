@@ -8,8 +8,6 @@ import com.assignment.springboot.repository.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,9 +20,6 @@ public class StudentServiceImpl implements StudentService{
 
     @Autowired
     private CollegeRepository collegeRepository;
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -42,19 +37,29 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Student findById(int id) {
         Optional<Student> result=studentRepository.findById(id);
-        Student theStudent=null;
+        Student student=null;
         if(result.isPresent())
         {
-            theStudent=result.get();
+            student=result.get();
         }
-        return theStudent;
+
+        return student;
     }
 
 
 
     @Override
-    public Student save(Student student,int collegeId) {
-        College college=collegeRepository.findById(collegeId).get();
+    public Student save(Student student,int collegeId) throws NullPointerException {
+        Optional<College> result=collegeRepository.findById(collegeId);
+        College college=null;
+        if(result.isPresent())
+        {
+            college=result.get();
+        }
+        if(college==null)
+        {
+            throw new NullPointerException("Not present");
+        }
         college.add(student);
         studentRepository.save(student);
         return student;

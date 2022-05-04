@@ -16,6 +16,7 @@
             <th>College Name</th>
             <th>College Location</th>
             <th>Students</th>
+            <div sec:authorize="hasRole('ADMIN')">
             <th >Action</th>
         </tr>
         </thead>
@@ -29,8 +30,7 @@
                     List Students
                 </a>
             </td>
-            <td>
-                <sec:authorize access="hasRole('ADMIN')">
+            <td sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/college/showFormForUpdate(collegeId=${college.id})}"
                    class="btn btn-info btn-sm">
                     Update
@@ -41,7 +41,6 @@
                    onclick="if(!confirm('Are you sure you want to delete this college?')) return false">
                     Delete
                 </a>
-                </sec:authorize>
             </td>
         </tr>
         </tbody>

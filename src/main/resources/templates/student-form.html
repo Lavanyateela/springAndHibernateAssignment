@@ -23,19 +23,15 @@
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First Name" />
-            <p class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" />
         </div>
         <div class="form-group">
             <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last Name" />
-            <p class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" />
         </div>
         <div class="form-group">
             <input type="text" th:field="*{studentDept}" class="form-control mb-4 col-4" placeholder="Department" />
-            <p class="alert alert-danger" th:if="${#fields.hasErrors('studentDept')}" th:errors="*{studentDept}" />
         </div>
         <div class="form-group">
             <input type="text" th:field="*{studentEmail}" class="form-control mb-4 col-4" placeholder="Email" />
-            <p class="alert alert-danger" th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}" />
         </div>
         <div class="form-group row flexDiv">
             <label class="col-form-label col-sm-4">Clubs: </label>
@@ -45,7 +41,6 @@
                         <input type="checkbox" th:field="*{clubs}" th:text="${club.clubName}" th:value="${club.id}" class="m-2"/>
                     </div>
                 </th:block>
-                <p class="alert alert-danger" th:if="${#fields.hasErrors('clubs')}" th:errors="*{clubs}" />
             </div>
         </div>
         <input type="hidden" th:value="${collegeId}" name="collegeId" />

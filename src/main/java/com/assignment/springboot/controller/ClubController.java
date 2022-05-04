@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @Controller
@@ -20,11 +19,12 @@ public class ClubController {
 
     private String clubForm="club-form";
 
+    private String redirect="redirect:/clubs/list";
+
     @GetMapping("/list")
     public String getClubs(Model theModel)
     {
         theModel.addAttribute("clubs",clubService.findAll());
-
         return "list-clubs";
     }
 
@@ -32,7 +32,6 @@ public class ClubController {
     public String addNewClub(Model theModel)
     {
         theModel.addAttribute("club",new Club());
-
         return clubForm;
     }
 
@@ -41,7 +40,6 @@ public class ClubController {
     {
         Club club=clubService.findById(clubId);
         theModel.addAttribute("club",club);
-
         return clubForm;
     }
 
@@ -53,16 +51,14 @@ public class ClubController {
             return clubForm;
         }
         clubService.save(theClub);
-
-        return "redirect:/clubs/list";
+        return redirect;
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("clubId") int theId)
     {
         clubService.deleteById(theId);
-
-        return "redirect:/clubs/list";
+        return redirect;
     }
 
 }

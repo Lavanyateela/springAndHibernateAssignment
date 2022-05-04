@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -33,13 +34,21 @@ public class CollegeServiceImpl implements CollegeService{
                 .collect(Collectors.toList());
     }
 
+
     public CollegeDTO convertEntityToDto(College college) {
         return modelMapper.map(college,CollegeDTO.class);
     }
 
     @Override
     public College findById(int id) {
-        return collegeRepository.findById(id).get();
+        Optional<College> result=collegeRepository.findById(id);
+        College college=null;
+        if(result.isPresent())
+        {
+            college=result.get();
+        }
+
+        return college;
     }
 
     @Override

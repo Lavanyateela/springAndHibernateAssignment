@@ -4,8 +4,6 @@ import com.assignment.springboot.dto.ClubDTO;
 import com.assignment.springboot.entity.Club;
 
 import java.util.List;
-import java.util.Optional;
-
 public interface ClubService {
     public List<ClubDTO> findAll();
     public Club findById(int id);

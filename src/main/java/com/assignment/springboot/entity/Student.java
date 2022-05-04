@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -17,8 +16,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name="student")
 public class Student {
-
-    private static final String EMAIL_REGEX = "^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +31,10 @@ public class Student {
     private String lastName;
 
     @Column(name = "student_dept")
-    @Pattern(regexp = "^[a-zA-Z]{2,3}$", message = "Length must be 2-3 characters")
     private String studentDept;
 
 
     @Column(name = "student_email")
-    @Pattern(regexp = EMAIL_REGEX, message = "Invalid format.")
     private String studentEmail;
 
     @ManyToOne(cascade = {
